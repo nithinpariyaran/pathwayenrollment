@@ -1,12 +1,25 @@
 {
-  "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp",
-    "Update": "true"
-  },
-  "Ports": [
-    {
-      "ContainerPort": "5000"
-    }
-  ]
+    "AWSEBDockerrunVersion": 2,
+    "volumes": [],
+    "containerDefinitions": [
+        {
+            "name": "pathwayschoolapp",
+            "image": "715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp:latest",
+            "update": true,
+            "mountPoints": [],
+            "environment": [
+                {
+                    "name": "PORT",
+                    "value": "5000"
+                }
+            ],
+            "portMappings": [
+                {
+                    "hostPort": 5000,
+                    "containerPort": 5000
+                }
+            ],
+            "links": []
+        }
+    ]
 }

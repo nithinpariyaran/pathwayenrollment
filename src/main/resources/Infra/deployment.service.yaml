@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pathwayschool-service
+  namespace: pathwayschool 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pathwayschool-service
+  template:
+    metadata:
+      labels:
+        app: pathwayschool-service
+    spec:
+      containers:
+      - name: pathwayschool-service
+        image: docker pull 715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pathwayschool-service-lb  
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: pathwayschool-service

@@ -25,6 +25,11 @@ public class PathwayEnrollmentUserServiceImpl {
 	private SecurityPasswordEncoder securityPasswordEncoder;
 
 
+	/**
+	 * The method is used to get an admin
+	 * @param userName
+	 * @return UserDTO
+	 */
 	public UserDTO getUser(String userName)  {
 		log.info("Inside the get User details service");
 		User user = userRepository.findByUserName(userName);
@@ -34,6 +39,12 @@ public class PathwayEnrollmentUserServiceImpl {
 		return userDTO;
 	}
 	
+	
+	/**
+	 * The method is used to add an admin
+	 * @param userDTO
+	 * @return UserDTO
+	 */
 	public UserDTO addUser(UserDTO userDTO){
 		User user = new User();
 		user.setUserName(userDTO.getUserName());

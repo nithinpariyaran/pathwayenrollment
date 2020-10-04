@@ -7,7 +7,7 @@ phases:
 
   pre_build:
     commands:
-      - mvn clean install -DSkipTest=true
+      - mvn clean install
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
@@ -30,3 +30,6 @@ artifacts:
   files:
     - 'Dockerfile'
     - 'target/PathwayEnrollmentProgram-1.0.0.jar'
+cache:
+  paths:
+    - '/root/.m2/**/*'    

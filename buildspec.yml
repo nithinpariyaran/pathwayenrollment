@@ -1,5 +1,5 @@
 version: 0.2
-
+//723b96b0af3b4bf34e83d9388ca573f36300c4c2
 phases:
   install:
     commands:
@@ -19,14 +19,13 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build -t pathwayschoolapp .
+      - docker tag pathwayschoolapp:latest 715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images..
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push 715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp:latest
 artifacts:
   files:
     - 'Dockerfile'

@@ -1,5 +1,4 @@
 version: 0.2
-//723b96b0af3b4bf34e83d9388ca573f36300c4c2
 phases:
   install:
     commands:

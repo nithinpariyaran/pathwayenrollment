@@ -29,4 +29,5 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
 artifacts:
   files:
-   - target/PathwayEnrollmentProgram-1.0.0.jar
+    - 'Dockerfile'
+    - 'target/PathwayEnrollmentProgram-1.0.0.jar'

@@ -1,25 +1,10 @@
 {
-    "AWSEBDockerrunVersion": 2,
-    "volumes": [],
-    "containerDefinitions": [
-        {
-            "name": "pathwayschoolapp",
-            "image": "715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp:latest",
-            "update": true,
-            "mountPoints": [],
-            "environment": [
-                {
-                    "name": "PORT",
-                    "value": "5000"
-                }
-            ],
-            "portMappings": [
-                {
-                    "hostPort": 5000,
-                    "containerPort": 5000
-                }
-            ],
-            "links": []
-        }
-    ]
+  "AWSEBDockerrunVersion": "1",
+  "Volumes": [
+    {
+      "ContainerDirectory": "/var/app",
+      "HostDirectory": "/var/app"
+    }
+  ],
+  "Logging": "/var/eb_log"
 }

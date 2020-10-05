@@ -27,9 +27,9 @@ public class PathwayEnrollmentUserServiceImplTest {
 		Assert.assertNotNull(userDTOAdded);
 	}
 	
-	@Test
+	//@Test
 	public void testgetUserByName() {
-		pathwayEnrollmentUserServiceImpl.getUser("nithin");
+		pathwayEnrollmentUserServiceImpl.getUser("Nithin");
 	}
 	
 

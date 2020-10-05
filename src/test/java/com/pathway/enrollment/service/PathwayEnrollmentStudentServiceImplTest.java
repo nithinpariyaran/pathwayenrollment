@@ -79,7 +79,6 @@ public class PathwayEnrollmentStudentServiceImplTest {
 		pathwayEnrollmentServiceImpl.deleteStudent(2); 
 	}
 
-	
 	@Test(expected = ResourceNotFoundException.class)
 	public void testDeleteStudent() throws ResourceNotFoundException{
 		String status = pathwayEnrollmentServiceImpl.deleteStudent(3);

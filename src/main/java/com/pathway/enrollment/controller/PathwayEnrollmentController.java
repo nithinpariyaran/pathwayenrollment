@@ -120,8 +120,8 @@ public class PathwayEnrollmentController {
 	 * @throws ResourceNotFoundException
 	 */
 	@ApiOperation(value = "Handles the deletion of a single student by its id.", response = StudentDTO.class)
-	@DeleteMapping("/api/v1/deleteStudent/{id}") // DELETE Method for Delete operation
-	public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") int studentId) throws ResourceNotFoundException {
+	@DeleteMapping("/api/v1/deleteStudent") // DELETE Method for Delete operation
+	public Map<String, Boolean> deleteStudent(@RequestParam(value = "id") int studentId) throws ResourceNotFoundException {
 		log.info("Inside the delete Student details for the id " + studentId);
 		pathwayEnrollmentService.deleteStudent(studentId);
 		Map<String, Boolean> response = new HashMap<>();

@@ -1,5 +1,7 @@
 package com.pathway.enrollment.controller;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +23,12 @@ import com.pathway.enrollment.dto.UserDTO;
 import com.pathway.enrollment.exception.ResourceNotFoundException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = PathwayEnrollmentProgramApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = PathwayEnrollmentProgramApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PathwayEnrollmentControllerTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
-	
+
 	@Autowired
 	private PathwayEnrollmentController pathwayEnrollmentController;
 
@@ -36,7 +38,6 @@ public class PathwayEnrollmentControllerTest {
 	private String getRootUrl() {
 		return "http://localhost:" + port + "/api/v1";
 	}
-	
 
 	@Test
 	public void testGetAllStudents() {
@@ -61,46 +62,42 @@ public class PathwayEnrollmentControllerTest {
 	}
 
 	@Test
-	public void testUpdateStudent() {
-		int id = 1;
-		StudentDTO studentDTO = restTemplate.getForObject(getRootUrl() + "/getStudent/" + id, StudentDTO.class);
-		studentDTO.setCountry("INDIA");
-		restTemplate.put(getRootUrl() + "/updateStudent/" + id, studentDTO);
-		ResponseEntity<StudentDTO> postResponse = restTemplate.postForEntity(getRootUrl() + "/updateStudent",
-				studentDTO, StudentDTO.class);
-		Assert.assertNotNull(postResponse);
-		Assert.assertNotNull(postResponse.getBody());
-		StudentDTO updateStudentDTO = restTemplate.getForObject(getRootUrl() + "/getStudent/" + id, StudentDTO.class);
-		Assert.assertNotNull(updateStudentDTO);
+	public void testUpdateStudent() throws ResourceNotFoundException {
+		StudentDTO studentDTO =addStudent();
+		studentDTO.setLastName("UpdatedLastName");
+		ResponseEntity<StudentDTO> responseEntity =  pathwayEnrollmentController.updateStudent(studentDTO);
+		Assert.assertNotNull(responseEntity.getBody());
 	}
 
 	@Test
-	public void testDeleteStudent() {
-		int id = 2;
-		StudentDTO studentDTO = restTemplate.getForObject(getRootUrl() + "/getStudent/" + id, StudentDTO.class);
-		Assert.assertNotNull(studentDTO);
-		restTemplate.delete(getRootUrl() + "/deleteStudent/" + id);
-		try {
-			studentDTO = restTemplate.getForObject(getRootUrl() + "/getStudent/" + id, StudentDTO.class);
-		} catch (final HttpClientErrorException e) {
-			Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
-		}
+	public void testDeleteStudent() throws ResourceNotFoundException {
+		StudentDTO studentDTO =addStudent();
+		pathwayEnrollmentController.deleteStudent(studentDTO);
+
 	}
-	
+
 	@Test
 	public void testGetStudentById() throws ResourceNotFoundException {
-		ResponseEntity<StudentDTO> responseEntity = pathwayEnrollmentController.getStudentById(1);
+		StudentDTO studentDTO =addStudent();
+		ResponseEntity<StudentDTO> responseEntity = pathwayEnrollmentController.getStudentById(studentDTO.getId());
 		Assert.assertNotNull(responseEntity.getBody());
-		
+
 	}
-	
-	
+
 	@Test
-	public void testAddUser() {
-		UserDTO userDTO = new UserDTO();
-		userDTO.setUserName("test");
-		userDTO.setPassword("test");
-		UserDTO userDTOAdded = pathwayEnrollmentController.addAdmin(userDTO);
-		Assert.assertNotNull(userDTOAdded);
+	public void testGetStudentByClassName() throws ResourceNotFoundException {
+		ResponseEntity<List<StudentDTO>> responseEntity = pathwayEnrollmentController.getStudentByClassName("3A");
+		Assert.assertNotNull(responseEntity.getBody());
+
+	}
+
+	private StudentDTO addStudent() {
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setFirstName("TestFName");
+		studentDTO.setLastName("TestLName");
+		studentDTO.setCountry("HK");
+		studentDTO.setDivision("2");
+		StudentDTO studentDTOAdded = pathwayEnrollmentController.addStudent(studentDTO);
+		return studentDTOAdded;
 	}
 }

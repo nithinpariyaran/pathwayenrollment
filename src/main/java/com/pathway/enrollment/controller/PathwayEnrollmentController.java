@@ -22,7 +22,6 @@ import com.pathway.enrollment.dto.StudentDTO;
 import com.pathway.enrollment.dto.UserDTO;
 import com.pathway.enrollment.exception.ResourceNotFoundException;
 import com.pathway.enrollment.service.PathwayEnrollmentServiceImpl;
-import com.pathway.enrollment.service.PathwayEnrollmentUserServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -35,8 +34,6 @@ public class PathwayEnrollmentController {
 	@Autowired
 	private PathwayEnrollmentServiceImpl pathwayEnrollmentService;
 
-	@Autowired
-	private PathwayEnrollmentUserServiceImpl pathwayEnrollmentUserService;
 
 	/**
 	 * The method is used to get all students

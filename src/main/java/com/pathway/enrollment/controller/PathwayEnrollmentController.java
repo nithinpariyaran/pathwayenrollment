@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,6 @@ import com.pathway.enrollment.dto.StudentDTO;
 import com.pathway.enrollment.dto.UserDTO;
 import com.pathway.enrollment.exception.ResourceNotFoundException;
 import com.pathway.enrollment.service.PathwayEnrollmentServiceImpl;
-import com.pathway.enrollment.service.PathwayEnrollmentUserServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -36,8 +34,6 @@ public class PathwayEnrollmentController {
 	@Autowired
 	private PathwayEnrollmentServiceImpl pathwayEnrollmentService;
 
-	@Autowired
-	private PathwayEnrollmentUserServiceImpl pathwayEnrollmentUserService;
 
 	/**
 	 * The method is used to get all students
@@ -120,27 +116,20 @@ public class PathwayEnrollmentController {
 	 * @throws ResourceNotFoundException
 	 */
 	@ApiOperation(value = "Handles the deletion of a single student by its id.", response = StudentDTO.class)
-	@DeleteMapping("/api/v1/deleteStudent/{id}") // DELETE Method for Delete operation
-	public Map<String, Boolean> deleteStudent(@PathVariable(value = "id") int studentId) throws ResourceNotFoundException {
-		log.info("Inside the delete Student details for the id " + studentId);
-		pathwayEnrollmentService.deleteStudent(studentId);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
+	@DeleteMapping("/api/v1/deleteStudent") // DELETE Method for Delete operation
+	public Map<String, Boolean> deleteStudent(@Valid @RequestBody StudentDTO studentDTO) throws ResourceNotFoundException {
+		log.info("Inside the delete Student details for the id " + studentDTO.getId());
+		Map<String, Boolean> response = new HashMap<>(); 
+		if("Delete".equalsIgnoreCase(pathwayEnrollmentService.deleteStudent(studentDTO.getId()))){
+			response.put("deleted", Boolean.TRUE);
+		}else {
+			response.put("No Student Found", Boolean.FALSE);
+		}
+		
+		
 		return response;
 	}
 
-	/**
-	 * The method will add a single student
-	 * 
-	 * @param student
-	 * @return Student
-	 */
-	@ApiOperation(value = "Handles the creation of a User.", response = UserDTO.class)
-	@PostMapping("/api/v1/addUser")
-	public UserDTO addAdmin(@RequestBody UserDTO userDTO) {
-		log.info("Inside the add User details");
-		return pathwayEnrollmentUserService.addUser(userDTO);
-	}
 	
 	/**
 	 * The method will add a single student
@@ -152,7 +141,7 @@ public class PathwayEnrollmentController {
 	@GetMapping("/api/v1/healthCheck")
 	public String healthCheck() {
 		log.info("Inside the healthCheck method");
-		return "Healthy";
+		return "Healthy...";
 	}
 
 }

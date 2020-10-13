@@ -22,7 +22,6 @@ public class PathwayEnrollmentUserServiceImpl {
 	@Autowired
 	private SecurityPasswordEncoder securityPasswordEncoder;
 
-
 //	public UserDTO getUser(String userName)  {
 //		log.info("Inside the get User details service");
 //		User user = userRepository.findByUserName(userName);
@@ -42,4 +41,5 @@ public class PathwayEnrollmentUserServiceImpl {
 //		userDTOAdded.setUserName(userAdded.getUserName());
 //		return userDTOAdded;
 //	}
+
 }

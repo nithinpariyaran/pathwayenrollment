@@ -1,10 +1,12 @@
 {
   "AWSEBDockerrunVersion": "1",
-  "Volumes": [
+  "Image": {
+    "Name": "715483467916.dkr.ecr.ap-southeast-1.amazonaws.com/pathwayschoolapp:latest",
+    "Update": "true"
+  },
+  "Ports": [
     {
-      "ContainerDirectory": "/var/app",
-      "HostDirectory": "/var/app"
+      "ContainerPort": "5000"
     }
-  ],
-  "Logging": "/var/eb_log"
+  ]
 }

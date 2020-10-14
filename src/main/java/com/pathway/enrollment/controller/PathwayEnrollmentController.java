@@ -141,7 +141,7 @@ public class PathwayEnrollmentController {
 	@GetMapping("/api/v1/healthCheck")
 	public String healthCheck() {
 		log.info("Inside the healthCheck method");
-		return "Healthy..";
+		return "Healthy.";
 	}
 
 }
